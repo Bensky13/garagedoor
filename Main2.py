@@ -115,7 +115,7 @@ class GarageDoor:
                     except ApiException as e:
                         print("Exception when calling SMSApi->sms_send_post: %s\n" % e)
                         self.smsCounter -=1
-                    time.sleep(300)
+                    time.sleep(30)
             else:
                 self.smsCounter = 0
 
