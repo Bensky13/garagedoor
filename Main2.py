@@ -38,6 +38,7 @@ class GarageDoor:
         garageDoorStatusThread = threading.Thread(target=self.doorStatusLoop)
 
         garageDoorStatusThread.start()
+        garageDoorStatusThread.join()
 
     def exitHandler(self):
         print("Got an exit signal, cleaning up...")
@@ -49,11 +50,11 @@ class GarageDoor:
         self.checkingBeamStatus = True
         while self.checkingBeamStatus and self.scriptRunning:
             currentBeamStatus = GPIO.input(self.BEAM_PIN)
-        if currentBeamStatus == 1:
-            print("Current Beam Status (1=Door Closed, 0=Door Open): %s" % currentBeamStatus)
-        else:
-            print("Door Open")
-            time.sleep(self.pollingRate)
+            if currentBeamStatus == 1:
+                print("Current Beam Status (1=Door Closed, 0=Door Open): %s" % currentBeamStatus)
+            else:
+                print("Door Open")
+                time.sleep(self.pollingRate)
 
 
 
