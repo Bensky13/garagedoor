@@ -20,7 +20,7 @@ class GarageDoor:
     garageDoorStatus = collections.deque(maxlen=maxStatusListLength)
 
     # Seconds
-    pollingRate = 5
+    pollingRate = 60
 
     # Status of the door right now
     currentlyOpen = None
