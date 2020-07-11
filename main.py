@@ -72,7 +72,7 @@ class GarageDoor:
         while self.checkingBeamStatus:
             print("Checking Beam Status Loop")
 
-            currentBeamStatus = GPIO.input(BEAM_PIN)
+            currentBeamStatus = GPIO.input(self.BEAM_PIN)
             print("Current Beam Status: %s" % currentBeamStatus)
             self.garageDoorStatus.append(currentBeamStatus)
 
