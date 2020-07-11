@@ -8,7 +8,7 @@ import clicksend_client
 from clicksend_client import SmsMessage
 from clicksend_client.rest import ApiException
 import socket
-from urllib.request import urlopen
+from urllib2 import urlopen
 
 
 class GarageDoor:
@@ -89,7 +89,7 @@ class GarageDoor:
 
         sendSMSThread.join()
 
-    def internet_on():
+    def internet(self):
         try:
             response = urlopen('https://www.google.com/', timeout=10)
             return True
