@@ -20,7 +20,7 @@ class GarageDoor:
     garageDoorStatus = collections.deque(maxlen=maxStatusListLength)
 
     # Seconds
-    pollingRate = 1
+    pollingRate = 5
 
     # Status of the door right now
     currentlyOpen = None
@@ -137,7 +137,7 @@ class GarageDoor:
                     except Exception as e:
                         print("Caught global exception while sending SMS messages")
                         self.smsCounter -= 1
-                    time.sleep(30)
+                    time.sleep(300)
             else:
                 self.smsCounter = 0
 
