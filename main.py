@@ -12,7 +12,7 @@ class GarageDoor:
     maxStatusListLength = 5
 
     # Seconds
-    pollingRate = 30
+    pollingRate = 5
 
     # Status of the door right now
     currentlyOpen = None
