@@ -29,6 +29,9 @@ class GarageDoor:
 
     def __init__(self):
         print("Initializing Garage Door Monitor")
+        # GPIO.setmode(GPIO.BCM)
+        # GPIO.setup(self.BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        # GPIO.add_event_detect(self.BEAM_PIN, GPIO.BOTH, callback=self.break_beam_callback)
         
         atexit.register(self.exitHandler)
 
