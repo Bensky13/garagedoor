@@ -51,10 +51,10 @@ class GarageDoor:
         while self.checkingBeamStatus and self.scriptRunning:
             currentBeamStatus = GPIO.input(self.BEAM_PIN)
             if currentBeamStatus == 1:
-                print("Current Beam Status (1=Door Closed, 0=Door Open): %s" % currentBeamStatus)
+                print("Door Closed")
             else:
                 print("Door Open")
-                time.sleep(self.pollingRate)
+            time.sleep(self.pollingRate)
 
 
 
