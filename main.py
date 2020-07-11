@@ -57,7 +57,11 @@ class GarageDoor:
         print("Got a callback!")
         if GPIO.input(self.BEAM_PIN):
             # Door Closed
-            print("beam unbroken")
+            if not self.checkingBeamStatus:
+                print("beam unbroken")
+                self.doorStatusLoop()
+            else:
+                print("We're already checking the status, don't start another one.")
         else:
             # Door Open
             if not self.checkingBeamStatus:
@@ -87,6 +91,7 @@ class GarageDoor:
         for status in self.garageDoorStatus:
             if not status:
                 openCount += 1
+        self.garageDoorStatus = []
         
         print("Open Count: %s" % openCount)
         if openCount >= self.maxStatusListLength / 2:
