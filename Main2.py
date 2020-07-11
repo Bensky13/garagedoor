@@ -8,6 +8,7 @@ import clicksend_client
 from clicksend_client import SmsMessage
 from clicksend_client.rest import ApiException
 import socket
+from urllib.request import urlopen
 
 
 class GarageDoor:
@@ -86,19 +87,13 @@ class GarageDoor:
         sendSMSThread.start()
         garageDoorStatusThread.join()
 
+        sendSMSThread.join()
 
-    def internet(host="8.8.8.8", port=53, timeout=3):
-        """
-        Host: 8.8.8.8 (google-public-dns-a.google.com)
-        OpenPort: 53/tcp
-        Service: domain (DNS/TCP)
-        """
+    def internet_on():
         try:
-            socket.setdefaulttimeout(timeout)
-            socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+            response = urlopen('https://www.google.com/', timeout=10)
             return True
-        except socket.error as ex:
-            print(ex)
+        except: 
             return False
 
 
@@ -110,8 +105,7 @@ class GarageDoor:
 
     def doorStatusLoop(self):
         self.checkingBeamStatus = True
-
-        while self.checkingBeamStatus or self.scriptRunning:
+        while self.checkingBeamStatus and self.scriptRunning:
             currentBeamStatus = GPIO.input(self.BEAM_PIN)
             if currentBeamStatus == 1:
                 print("Door Closed")
@@ -139,11 +133,13 @@ class GarageDoor:
                         self.smsCounter += 1
                     except ApiException as e:
                         print("Exception when calling SMSApi->sms_send_post: %s\n" % e)
-                        self.smsCounter -=1
+                        self.smsCounter -= 1
+                    except Exception as e:
+                        print("Caught global exception while sending SMS messages")
+                        self.smsCounter -= 1
                     time.sleep(30)
             else:
                 self.smsCounter = 0
-            time.sleep(1)
 
 if __name__ == "__main__":
     garageDoorObject = GarageDoor()
