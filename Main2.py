@@ -86,9 +86,6 @@ class GarageDoor:
         sendSMSThread.start()
         garageDoorStatusThread.join()
 
-<<<<<<< HEAD
-        sendSMSThread.join()
-
 
     def internet(host="8.8.8.8", port=53, timeout=3):
         """
@@ -105,8 +102,6 @@ class GarageDoor:
             return False
 
 
-=======
->>>>>>> cfefed6f0c668c9ff6e9bffdfad26c0cecf174b9
     def exitHandler(self):
         print("Got an exit signal, cleaning up...")
         GPIO.cleanup()
