@@ -34,8 +34,8 @@ class GarageDoor:
     def __init__(self):
         print("Initializing Garage Door Monitor")
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.add_event_detect(BEAM_PIN, GPIO.BOTH, callback=break_beam_callback)
+        GPIO.setup(self.BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+        GPIO.add_event_detect(self.BEAM_PIN, GPIO.BOTH, callback=break_beam_callback)
 
         atexit.register(self.exitHandler)
 
@@ -47,7 +47,7 @@ class GarageDoor:
 
     def break_beam_callback(self, channel):
         print("Got a callback!")
-        if GPIO.input(BEAM_PIN):
+        if GPIO.input(self.BEAM_PIN):
             # Door Closed
             print("beam unbroken")
         else:
