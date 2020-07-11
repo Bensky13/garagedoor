@@ -62,8 +62,8 @@ class GarageDoor:
                 print(self.brokenCount)
             time.sleep(self.pollingRate)
 
-        if self.brokenCount >= 5:
-            print("Hey, the door is open")
+            if self.brokenCount >= 5:
+                print("Hey, the door is open")
 
 
 
