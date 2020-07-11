@@ -76,8 +76,6 @@ class GarageDoor:
         sendSMSThread.start()
         garageDoorStatusThread.join()
 
-        sendSMSThread.join()
-
     def exitHandler(self):
         print("Got an exit signal, cleaning up...")
         GPIO.cleanup()
@@ -86,7 +84,8 @@ class GarageDoor:
 
     def doorStatusLoop(self):
         self.checkingBeamStatus = True
-        while self.checkingBeamStatus and self.scriptRunning:
+
+        while self.checkingBeamStatus or self.scriptRunning:
             currentBeamStatus = GPIO.input(self.BEAM_PIN)
             if currentBeamStatus == 1:
                 print("Door Closed")
@@ -118,6 +117,7 @@ class GarageDoor:
                     time.sleep(30)
             else:
                 self.smsCounter = 0
+            time.sleep(1)
 
 if __name__ == "__main__":
     garageDoorObject = GarageDoor()

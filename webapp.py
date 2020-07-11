@@ -1,5 +1,5 @@
 from flask import Flask
-from main2 import GarageDoor
+from Main2 import GarageDoor
 
 app = Flask(__name__)
 
