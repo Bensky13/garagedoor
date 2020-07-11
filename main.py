@@ -31,19 +31,27 @@ class GarageDoor:
     # GPIO Pimn
     BEAM_PIN = 17
 
+    scriptRunning = True
+
     def __init__(self):
         print("Initializing Garage Door Monitor")
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.BEAM_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.add_event_detect(self.BEAM_PIN, GPIO.BOTH, callback=self.break_beam_callback)
-
+        GPIO.add_event_detect(self.BEAM_PIN, GPIO.BOTH, callback=break_beam_callback)
+        
         atexit.register(self.exitHandler)
+
+
+        while self.scriptRunning:
+            print("hey i'm just sittin here...")
+            time.sleep(1)
+
 
 
     def exitHandler(self):
         print("Got an exit signal, cleaning up...")
         GPIO.cleanup()
-
+        self.scriptRunning = False
 
     def break_beam_callback(self, channel):
         print("Got a callback!")
