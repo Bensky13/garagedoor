@@ -73,9 +73,9 @@ class GarageDoor:
 
 
         garageDoorStatusThread.start()
+        sendSMSThread.start()
         garageDoorStatusThread.join()
 
-        sendSMSThread.start()
         sendSMSThread.join()
 
     def exitHandler(self):
