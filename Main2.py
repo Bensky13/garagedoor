@@ -7,7 +7,7 @@ import collections
 import clicksend_client
 from clicksend_client import SmsMessage
 from clicksend_client.rest import ApiException
-
+import socket
 
 
 class GarageDoor:
@@ -49,6 +49,16 @@ class GarageDoor:
         config = configparser.ConfigParser()
         config.read('settings.conf')
 
+
+        # While there is no internet... run a continously loop.
+        # THIS IS BLOCKING THE ENTIRE STATUS CHECK SCRIPT!
+        noInternetCount = 0
+        while not self.internet():
+            print("No internet %s!!!" % noInternetCount)
+
+            noInternetCount += 1
+            time.sleep(5)
+
         # Configure HTTP basic authorization: BasicAuth
         username = config['Notifications']['clicksendAPI_username']
         password = config['Notifications']['clicksendAPI_password']
@@ -77,6 +87,22 @@ class GarageDoor:
         garageDoorStatusThread.join()
 
         sendSMSThread.join()
+
+
+    def internet(host="8.8.8.8", port=53, timeout=3):
+        """
+        Host: 8.8.8.8 (google-public-dns-a.google.com)
+        OpenPort: 53/tcp
+        Service: domain (DNS/TCP)
+        """
+        try:
+            socket.setdefaulttimeout(timeout)
+            socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((host, port))
+            return True
+        except socket.error as ex:
+            print(ex)
+            return False
+
 
     def exitHandler(self):
         print("Got an exit signal, cleaning up...")
