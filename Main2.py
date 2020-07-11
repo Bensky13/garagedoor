@@ -14,7 +14,7 @@ class GarageDoor:
     garageDoorStatus = collections.deque(maxlen=maxStatusListLength)
 
     # Seconds
-    pollingRate = 5
+    pollingRate = 1
 
     # Status of the door right now
     currentlyOpen = None
@@ -24,6 +24,9 @@ class GarageDoor:
 
     # GPIO Pimn
     BEAM_PIN = 17
+    
+    #How many instances the beam is broken (door open)
+    brokenCount = 0
 
     scriptRunning = True
 
@@ -52,8 +55,11 @@ class GarageDoor:
             currentBeamStatus = GPIO.input(self.BEAM_PIN)
             if currentBeamStatus == 1:
                 print("Door Closed")
+                self.brokenCount = 0
             else:
                 print("Door Open")
+                self.brokenCount += 1
+                print(self.brokenCount)
             time.sleep(self.pollingRate)
 
 
