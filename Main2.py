@@ -135,7 +135,7 @@ class GarageDoor:
                         print("Exception when calling SMSApi->sms_send_post: %s\n" % e)
                         self.smsCounter -= 1
                     except Exception as e:
-                        print("Caught global exception while sending SMS messages")
+                        print("Caught global exception while sending SMS messages : %s" % e)
                         self.smsCounter -= 1
                     time.sleep(300)
             else:
