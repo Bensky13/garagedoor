@@ -64,6 +64,8 @@ class GarageDoor:
         username = config['Notifications']['clicksendAPI_username']
         password = config['Notifications']['clicksendAPI_password']
         notificationNumber = config['Notifications']['phonenumber']
+        notificationNumber2 = config['Notifications']['benjaminWork']
+        notificationNumber3 = config['Notifications']['annaCell']
         configuration = clicksend_client.Configuration()
         configuration.username = username
         configuration.password = password
@@ -75,8 +77,15 @@ class GarageDoor:
         sms_message = SmsMessage(source="python",
                         body="Hey, the garage door has been open for five minutes.",
                         to=notificationNumber)
+        sms_message2 = SmsMessage(source="python",
+                        body="Hey, the garage door has been open for several minutes.",
+                        to=notificationNumber2)
 
-        self.sms_messages = clicksend_client.SmsMessageCollection(messages=[sms_message])
+        sms_message3 = SmsMessage(source="python",
+                        body="Hey, the garage door has been open for several minutes.",
+                        to=notificationNumber3)
+
+        self.sms_messages = clicksend_client.SmsMessageCollection(messages=[sms_message,sms_message2,sms_message3])
 
 
         garageDoorStatusThread = threading.Thread(target=self.doorStatusLoop)
