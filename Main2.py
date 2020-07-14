@@ -85,9 +85,9 @@ class GarageDoor:
 
         garageDoorStatusThread.start()
         sendSMSThread.start()
-        garageDoorStatusThread.join()
+        #garageDoorStatusThread.join()
 
-        sendSMSThread.join()
+        #sendSMSThread.join()
 
     def internet(self):
         try:
